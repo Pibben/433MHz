@@ -20,10 +20,12 @@ static void printHex8(uint8_t data)
 }
 #endif
 
-static bool receive433MHz(uint32_t code) {
+static bool receive433MHz(uint32_t code, uint8_t maxRetries) {
+
 	int i = 0;
 	uint32_t data = 0;
 	unsigned long t;
+	uint8_t retries = 0;
 #ifdef DEBUG
 	unsigned int pulses[25];
 	unsigned char currPulse = 0;
@@ -42,6 +44,11 @@ static bool receive433MHz(uint32_t code) {
 			currPulse = 0;
 #endif
 			i = 0;
+			retries++;
+
+			if(retries > maxRetries) {
+				return false;
+			}
 
 			continue;
 		}
@@ -79,10 +86,22 @@ int main() {
 	pinMode(rxPin, INPUT);
 	Serial.begin(9600);
 
+	bool on = true;
+	int count = 0;
 	while (true) {
-		if(receive433MHz(0x00899381)) {
+
+		if(receive433MHz(0x00899381, 3)) {
 			Serial.println("Ping!");
 		}
+
+		if(++count == 100) {
+			on = !on;
+
+			digitalWrite(ledPin, on);
+			count = 0;
+		}
+
+		delay(10);
 	}
 }
 
