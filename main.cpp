@@ -20,7 +20,7 @@ static void printHex8(uint8_t data)
 }
 #endif
 
-static bool receive433MHz(uint32_t code, uint8_t maxRetries) {
+bool receive433MHz(uint32_t code, uint8_t maxRetries) {
 
 	int i = 0;
 	uint32_t data = 0;
@@ -79,6 +79,7 @@ static bool receive433MHz(uint32_t code, uint8_t maxRetries) {
 	return data == code;
 }
 
+#if 0
 int main() {
 	init();
 
@@ -104,4 +105,4 @@ int main() {
 		delay(10);
 	}
 }
-
+#endif
