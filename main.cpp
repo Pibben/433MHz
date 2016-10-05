@@ -8,7 +8,7 @@
 
 #include <Arduino.h>
 
-int rxPin = 12;
+int rxPin = 5;
 int ledPin = 13;
 
 #ifdef DEBUG
