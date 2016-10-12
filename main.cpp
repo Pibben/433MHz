@@ -20,6 +20,10 @@ static void printHex8(uint8_t data)
 }
 #endif
 
+bool peek() {
+    return digitalRead(rxPin);
+}
+
 bool receive433MHz(uint32_t code, uint8_t maxRetries) {
 
 	int i = 0;

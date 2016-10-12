@@ -8,6 +8,8 @@
 #ifndef LIB433MHZ_H_
 #define LIB433MHZ_H_
 
+bool peek();
+
 bool receive433MHz(uint32_t code, uint8_t maxRetries);
 
 
